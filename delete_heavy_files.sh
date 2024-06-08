@@ -16,18 +16,18 @@ principal() {
     read -p "¿Cuál desea eliminar? Marque el número: " NUM
 
     # Validar que el número ingresado es válido
-    if ! [[ "NUM" =~ ^[0-9]+NUM" =~ ^[0-9]+ ]]; then
+    if ! [[ "$NUM" =~ ^[0-9]+$ ]]; then
       echo "Entrada no válida. Debe ser un número."
       continue
     fi
 
     # Obtener el archivo correspondiente al número ingresado
-    FILE_TO_DELETE=(echo "(echo "FILES" | sed -n "{NUM}p" | awk '{print {NUM}p" | awk '{print 2}')
+    FILE_TO_DELETE=$(echo "$FILES" | sed -n "${NUM}p" | awk '{print $2}')
 
     # Confirmar la eliminación
     read -p "¿Está seguro de que desea eliminar el archivo $FILE_TO_DELETE? (s/n): " CONFIRM
 
-    if [[ "CONFIRM" =~ ^[sS]CONFIRM" =~ ^[sS] ]]; then
+    if [[ "$CONFIRM" =~ ^[sS]$ ]]; then
       sudo rm "$FILE_TO_DELETE"
       echo "Archivo $FILE_TO_DELETE eliminado correctamente."
     else
@@ -37,7 +37,7 @@ principal() {
     # Preguntar si desea volver a escanear
     read -p "¿Desea volver a escanear? (s/n): " REPEAT
 
-    if [[ ! "REPEAT" =~ ^[sS]REPEAT" =~ ^[sS] ]]; then
+    if [[ ! "$REPEAT" =~ ^[sS]$ ]]; then
       echo "Saliendo del script."
       break
     fi
